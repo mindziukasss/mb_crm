@@ -6,7 +6,10 @@
  */
 
 // any CSS you require will output into a single css file (app.css in this case)
-require('../scss/app.scss');
+import '../scss/app.scss';
+
+import $ from 'jquery';
+import 'bootstrap';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
