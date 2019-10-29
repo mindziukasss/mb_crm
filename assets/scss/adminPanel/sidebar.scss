@@ -25,3 +25,14 @@
     border-radius: 7px;
   }
 }
+
+@media (max-width: 575px) {
+  .sidebar {
+    position: static;
+    height: auto;
+  }
+
+  .top-navbar {
+    position: static;
+  }
+}
