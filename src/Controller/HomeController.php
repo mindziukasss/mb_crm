@@ -3,13 +3,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class HomeController
  */
-class HomeController extends AbstractController
+class HomeController extends BaseController
 {
 
     /**
@@ -17,7 +17,7 @@ class HomeController extends AbstractController
      */
     public function home()
     {
-        return $this->render('base.html.twig');
+        return new Response('Home page');
     }
 
 }
