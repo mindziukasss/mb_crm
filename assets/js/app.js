@@ -10,6 +10,7 @@ import '../scss/app.scss';
 
 import $ from 'jquery';
 import 'bootstrap';
+import './components/time'
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
