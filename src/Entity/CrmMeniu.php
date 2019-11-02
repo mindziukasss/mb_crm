@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\EnabledTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Traits\EnabledTrait;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 

@@ -8,8 +8,12 @@ namespace App\Entity\Traits;
  */
 trait EnabledTrait
 {
-    /** @var bool */
-    private $enabled;
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled = true;
 
     /**
      * @return bool
