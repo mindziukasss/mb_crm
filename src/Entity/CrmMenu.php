@@ -9,9 +9,12 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CrmMeniuRepository")
+ * Class CrmMenu
+ *
+ * @ORM\Entity(repositoryClass="App\Repository\CrmMenuRepository")
+ *
  */
-class CrmMeniu
+class CrmMenu
 {
     use TimestampableEntity;
     use SoftDeleteableEntity;

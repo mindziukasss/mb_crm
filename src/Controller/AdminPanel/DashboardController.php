@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class DashboardController
+ *
  * @Route("/dasboard")
  */
 class DashboardController extends BaseController

@@ -2,25 +2,28 @@
 
 namespace App\Repository;
 
-use App\Entity\CrmMeniu;
+use App\Entity\CrmMenu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method CrmMeniu|null find($id, $lockMode = null, $lockVersion = null)
- * @method CrmMeniu|null findOneBy(array $criteria, array $orderBy = null)
- * @method CrmMeniu[]    findAll()
- * @method CrmMeniu[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class CrmMenuRepository
+ *
+ * @method CrmMenu|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CrmMenu|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CrmMenu[]    findAll()
+ * @method CrmMenu[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
  */
-class CrmMeniuRepository extends ServiceEntityRepository
+class CrmMenuRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CrmMeniu::class);
+        parent::__construct($registry, CrmMenu::class);
     }
 
     // /**
-    //  * @return CrmMeniu[] Returns an array of CrmMeniu objects
+    //  * @return CrmMenu[] Returns an array of CrmMenu objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +40,7 @@ class CrmMeniuRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CrmMeniu
+    public function findOneBySomeField($value): ?CrmMenu
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
