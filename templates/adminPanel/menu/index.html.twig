@@ -13,7 +13,7 @@
                         <table class="table table-striped bg-light text-center">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Id</th>
                                     <th>Title</th>
                                     <th>Position</th>
                                     <th>Created</th>
@@ -23,20 +23,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <th>1</th>
-                                <td>Test</td>
-                                <td>5</td>
-                                <td>2019-10-31 12:30</td>
-                                <td>2019-10-31 12:30</td>
-                                <td>Show</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-danger">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-                                </td>
+                            {% for menu in crmMenus %}
+                                <tr>
+                                    <td>{{ menu.id }}</td>
+                                    <td>{{ menu.title }}</td>
+                                    <td>{{ menu.position }}</td>
+                                    <td>{{ menu.createdAt|date('Y-m-d H:m') }}</td>
+                                    <td>{{ menu.updatedAt|date('Y-m-d H:m') }}</td>
+                                    <td>{{ menu.enabled ? 'Yes' : 'No' }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
