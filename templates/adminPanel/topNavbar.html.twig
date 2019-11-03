@@ -1,7 +1,7 @@
 <div class="col-xl-10 col-lg-10 col-md-8 col-sm-8 ml-auto bg-dark fixed-top py-2 top-navbar">
     <div class="row align-items-center">
         <div class="col-md-4 col-sm-4 col-4">
-            <h4 class="text-light mb-0">Dashboard</h4>
+            <h4 class="text-light mb-0">{{ (app.request.attributes.get('_route')|titlePage) }}</h4>
         </div>
         <div class="col-md-5 col-sm-4 col-4">
 

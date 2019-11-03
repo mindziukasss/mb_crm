@@ -2,10 +2,21 @@
     <a href="#" class="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border">MB
         CRM</a>
     <ul class="navbar-nav flex-column">
-        <li class="nav-item"><a href="#" class="nav-link text-white p-3 mb-2 current"><i
-                        class="fa fa-home text-light fa-lg mr-3"></i>Dashboard</a></li>
-        <li class="nav-item"><a href="#" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                        class="fa fa-toggle-right text-light fa-lg mr-3"></i>Menu</a></li>
+            {% set route = app.request.get('_route') %}
+        <li class="nav-item">
+            <a href="{{ path('crm_dashboard_index') }}" class="nav-link text-white p-3 mb-2
+            {% if route == 'crm_dashboard_index' %}current{% endif %}">
+                <i class="fa fa-home text-light fa-lg mr-3"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ path('crm_menu_index') }}" class="nav-link text-white p-3 mb-2
+            {% if route == 'crm_menu_index' %}current{% endif %}">
+                <i class="fa fa-toggle-right text-light fa-lg mr-3"></i>
+                Menu
+            </a>
+        </li>
         <li class="nav-item"><a href="#" class="nav-link text-white p-3 mb-2 sidebar-link"><i
                         class="fa fa-toggle-right text-light fa-lg mr-3"></i>Sub-menu</a></li>
         <li class="nav-item"><a href="#" class="nav-link text-white p-3 mb-2 sidebar-link"><i

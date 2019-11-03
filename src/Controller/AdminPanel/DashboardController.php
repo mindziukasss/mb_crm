@@ -9,13 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class DashboardController
  *
- * @Route("/dasboard")
+ * @Route("/dashboard")
  */
 class DashboardController extends BaseController
 {
 
     /**
-     * @Route("/" , name="crm_dasboard_index")
+     * @Route("/" , name="crm_dashboard_index")
      */
     public function index()
     {
