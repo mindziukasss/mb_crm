@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff9e47bcfac0250ce9ee3c6e1b3ef8f1",
+    "content-hash": "e2fccac2bf0d7c5d417c6041784f3954",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -5539,16 +5539,16 @@
         },
         {
             "name": "symfony/validator",
-            "version": "v4.3.5",
+            "version": "v4.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/validator.git",
-                "reference": "dd344bae7894ce8d6c399d854d894eb6e52ee178"
+                "reference": "33ba80582cab3400c9aae66f5e58bb51d7412192"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/validator/zipball/dd344bae7894ce8d6c399d854d894eb6e52ee178",
-                "reference": "dd344bae7894ce8d6c399d854d894eb6e52ee178",
+                "url": "https://api.github.com/repos/symfony/validator/zipball/33ba80582cab3400c9aae66f5e58bb51d7412192",
+                "reference": "33ba80582cab3400c9aae66f5e58bb51d7412192",
                 "shasum": ""
             },
             "require": {
@@ -5628,7 +5628,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
-            "time": "2019-10-07T12:36:49+00:00"
+            "time": "2019-10-30T12:58:49+00:00"
         },
         {
             "name": "symfony/var-dumper",

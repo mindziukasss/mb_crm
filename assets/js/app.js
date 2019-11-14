@@ -11,8 +11,14 @@ import '../scss/app.scss';
 import $ from 'jquery';
 import 'bootstrap';
 import './components/time'
+import './components/delete'
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
+// Need jQuery? Install it with 'yarn add jquery', then uncomment to require it.
 // const $ = require('jquery');
+$(document).ready(function(){
+    $('.alert-success').fadeTo(2000, 500).slideUp(500, function(){
+        $('.alert-success').slideUp(500);
+    });
+});
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');

@@ -22,6 +22,37 @@ class CrmMenuRepository extends ServiceEntityRepository
         parent::__construct($registry, CrmMenu::class);
     }
 
+    /**
+     * @return mixed
+     */
+    public function findAllMenu()
+    {
+        $data =  $this  ->createQueryBuilder('m')
+            ->andWhere('m.deletedAt IS NULL')
+            ->getQuery()
+            ->getResult();
+
+        return $data;
+    }
+
+    /**
+     * @param $position
+     *
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function isPosition($position)
+    {
+
+        $data =  $this  ->createQueryBuilder('m')
+            ->andWhere('m.position = :val AND m.deletedAt IS NULL')
+            ->setParameter('val', $position)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $data;
+    }
+
     // /**
     //  * @return CrmMenu[] Returns an array of CrmMenu objects
     //  */

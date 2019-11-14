@@ -7,11 +7,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\EnabledTrait;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class CrmMenu
  *
  * @ORM\Entity(repositoryClass="App\Repository\CrmMenuRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  *
  */
 class CrmMenu
@@ -34,6 +36,13 @@ class CrmMenu
      * @var string
      *
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank(message="Please set a title!")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 64,
+     *      minMessage = "Your title must be at least {{ limit }} characters long",
+     *      maxMessage = "Your title cannot be longer than {{ limit }} characters"
+     * )
      */
     private $title;
 
@@ -41,6 +50,8 @@ class CrmMenu
      * @var int
      *
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Please set a number!")
+     * @\App\Validator\Position()
      */
     private $position;
 
