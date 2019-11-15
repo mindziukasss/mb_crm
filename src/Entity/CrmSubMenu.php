@@ -2,30 +2,27 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Traits\EnabledTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Traits\EnabledTrait;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class CrmMenu
+ * Class CrmSubMenu
  *
- * @ORM\Entity(repositoryClass="App\Repository\CrmMenuRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CrmSubMenuRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
- *
  */
-class CrmMenu
+class CrmSubMenu
 {
+
     use TimestampableEntity;
     use SoftDeleteableEntity;
     use EnabledTrait;
 
     /**
-     *
      * @var int
      *
      * @ORM\Id()
@@ -60,25 +57,18 @@ class CrmMenu
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
 
     /**
-     * @var CrmSubMenu
+     * @var CrmMenu
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\CrmSubMenu", mappedBy="menu")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CrmMenu", inversedBy="subMenus")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $subMenus;
-
-    /**
-     * CrmMenu constructor.
-     */
-    public function __construct()
-    {
-        $this->subMenus = new ArrayCollection();
-    }
+    private $menu;
 
     /**
      * @return int|null
@@ -149,42 +139,21 @@ class CrmMenu
     }
 
     /**
-     * @return Collection|CrmSubMenu[]
+     * @return CrmMenu|null
      */
-    public function getSubMenus(): Collection
+    public function getMenu(): ?CrmMenu
     {
-        return $this->subMenus;
+        return $this->menu;
     }
 
     /**
-     * @param CrmSubMenu $subMenu
+     * @param CrmMenu|null $menu
      *
      * @return $this
      */
-    public function addSubMenu(CrmSubMenu $subMenu): self
+    public function setMenu(?CrmMenu $menu): self
     {
-        if (!$this->subMenus->contains($subMenu)) {
-            $this->subMenus[] = $subMenu;
-            $subMenu->setMenu($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param CrmSubMenu $subMenu
-     *
-     * @return $this
-     */
-    public function removeSubMenu(CrmSubMenu $subMenu): self
-    {
-        if ($this->subMenus->contains($subMenu)) {
-            $this->subMenus->removeElement($subMenu);
-            // set the owning side to null (unless already changed)
-            if ($subMenu->getMenu() === $this) {
-                $subMenu->setMenu(null);
-            }
-        }
+        $this->menu = $menu;
 
         return $this;
     }
