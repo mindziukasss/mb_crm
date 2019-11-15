@@ -7,6 +7,7 @@ namespace App\Controller\AdminPanel;
 use App\Controller\BaseController;
 use App\Entity\CrmMenu;
 use App\Form\AdminPanel\Menu\CrmMenuType;
+use App\Paginator\PaginatorItemsList;
 use App\Repository\CrmMenuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,14 +24,18 @@ class CrmMenuController extends BaseController
     /**
      *
      * @Route("/", name="crm_menu_index")
-     * @param CrmMenuRepository $menuRepository
+     * @param CrmMenuRepository  $menuRepository
+     *
+     * @param PaginatorItemsList $paginatorItemsList
      *
      * @return Response
      */
-    public function index(CrmMenuRepository $menuRepository ): Response
+    public function index(CrmMenuRepository $menuRepository, PaginatorItemsList $paginatorItemsList): Response
     {
+        $queryBuilder = $menuRepository->getMenuQueryBuilder();
+
         return $this->render('adminPanel/menu/index.html.twig', [
-            'crmMenus' => $menuRepository->findAllMenu(),
+            'crmMenus' => $paginatorItemsList->getPagination($queryBuilder)
         ]);
     }
 

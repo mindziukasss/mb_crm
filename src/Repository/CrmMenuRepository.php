@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\CrmMenu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class CrmMenuRepository
@@ -23,16 +24,14 @@ class CrmMenuRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return mixed
+     * @return QueryBuilder
      */
-    public function findAllMenu()
+    public function getMenuQueryBuilder(): QueryBuilder
     {
-        $data =  $this  ->createQueryBuilder('m')
+        return $this->createQueryBuilder('m')
             ->andWhere('m.deletedAt IS NULL')
-            ->getQuery()
-            ->getResult();
+            ->orderBy('m.createdAt', 'ASC');
 
-        return $data;
     }
 
     /**
