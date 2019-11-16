@@ -50,7 +50,7 @@ class CrmSubMenu
      *
      * @ORM\Column(type="integer")
      * @Assert\NotBlank(message="Please set a number!")
-     * @\App\Validator\Position()
+     * @\App\Validator\PositionSub()
      */
     private $position;
 

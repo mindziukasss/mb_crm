@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class PaginatorItemsList
 {
-    const LIMIT_PER_PAGE = 4;
+    const LIMIT_PER_PAGE = 10;
 
     /**
      * @var null|\Symfony\Component\HttpFoundation\Request

@@ -17,8 +17,13 @@
                 Menu
             </a>
         </li>
-        <li class="nav-item"><a href="#" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                        class="fa fa-toggle-right text-light fa-lg mr-3"></i>Sub-menu</a></li>
+        <li class="nav-item">
+            <a href="{{ path('crm_sub_menu_index') }}" class="nav-link text-white p-3 mb-2
+             {% if route == 'crm_sub_menu_index' %}current{% endif %}">
+                <i class="fa fa-toggle-right text-light fa-lg mr-3"></i>
+                Sub-menu
+            </a>
+        </li>
         <li class="nav-item"><a href="#" class="nav-link text-white p-3 mb-2 sidebar-link"><i
                         class="fa fa-image text-light fa-lg mr-3"></i>Image</a></li>
         <li class="nav-item"><a href="#" class="nav-link text-white p-3 mb-2 sidebar-link"><i

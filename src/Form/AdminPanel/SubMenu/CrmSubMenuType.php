@@ -1,20 +1,25 @@
 <?php
 
-namespace App\Form\AdminPanel\Menu;
+namespace App\Form\AdminPanel\SubMenu;
 
 use App\Entity\CrmMenu;
+use App\Entity\CrmSubMenu;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * Class CrmMenuType
+ * Class CrmSubMenuType
  */
-class CrmMenuType extends AbstractType
+class CrmSubMenuType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -22,6 +27,24 @@ class CrmMenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add(
+                'menu',
+                EntityType::class,
+                [
+                    'class' => CrmMenu::class,
+                    'label' => 'Menu',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('m')
+                            ->where('m.deletedAt IS NULL')
+                            ->orderBy('m.createdAt', 'ASC');
+                    },
+                    'choice_label' => 'title',
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+
+                ]
+            )
             ->add(
                 'title',
                 TextType::class,
@@ -51,7 +74,7 @@ class CrmMenuType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => CrmMenu::class,
+            'data_class' => CrmSubMenu::class,
         ]);
     }
 }

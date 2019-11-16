@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\CrmSubMenu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class CrmSubMenuRepository
@@ -20,6 +21,38 @@ class CrmSubMenuRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CrmSubMenu::class);
     }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getSubMenuQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.deletedAt IS NULL')
+            ->orderBy('s.createdAt', 'ASC');
+
+    }
+
+    /**
+     * @param $position
+     *
+     * @param $menuId
+     *
+     * @return bool
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function isPosition($position, $menuId)
+    {
+        $data =  $this  ->createQueryBuilder('s')
+            ->andWhere('s.menu = :menuId AND s.position = :val AND s.deletedAt IS NULL')
+            ->setParameter('val', $position)
+            ->setParameter('menuId', $menuId)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $data;
+    }
+
 
     // /**
     //  * @return CrmSubMenu[] Returns an array of CrmSubMenu objects
