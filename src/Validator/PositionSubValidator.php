@@ -37,16 +37,14 @@ class PositionSubValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $menuId = $this->context->getRoot()->getData();
+        $postMenuData = $this->context->getRoot()->getData();
 
-        $crmSubMenu = $this->subMenuPosition->isPosition($value, $menuId->getMenu()->getId());
+        $crmSubMenu = $this->subMenuPosition->isPosition($value, $postMenuData->getMenu()->getId());
 
         if (!empty($crmSubMenu)) {
 
-            $editCrmSubMenu= $this->context->getRoot()->getData();
-
-            if ($editCrmSubMenu->getId() === $crmSubMenu->getId() &&
-                $editCrmSubMenu->getPosition() && $crmSubMenu->getPosition()) {
+            if ($postMenuData->getId() === $crmSubMenu->getId() &&
+                $postMenuData->getPosition() && $crmSubMenu->getPosition()) {
 
                 return;
             }

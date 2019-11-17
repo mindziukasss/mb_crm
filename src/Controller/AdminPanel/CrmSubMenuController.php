@@ -71,4 +71,56 @@ class CrmSubMenuController extends BaseController
         );
     }
 
+    /**
+     * @Route("/{id}/edit", name="crm_sub_menu_edit", methods={"GET","POST"})
+     * @param CrmSubMenu             $crmSubMenu
+     * @param Request                $request
+     *
+     * @param EntityManagerInterface $em
+     *
+     * @return Response
+     */
+    public function edit(CrmSubMenu $crmSubMenu, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(CrmSubMenuType::class, $crmSubMenu);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CrmSubMenu $subMenu */
+            $subMenu = $form->getData();
+
+            $em->persist($subMenu);
+            $em->flush();
+
+            $this->addFlash('success', 'SubMenu Update!');
+
+            return $this->redirectToRoute('crm_sub_menu_index');
+
+        }
+
+        return $this->render(
+            'adminPanel/subMenu/edit.html.twig',
+            [
+                'subMenuForm' => $form->createView(),
+                'crmSubMenu' => $crmSubMenu
+
+            ]
+        );
+    }
+
+    /**
+     * @Route("/{id}", name="crm_sub_menu_delete", methods={"DELETE"})
+     * @param CrmSubMenu             $crmSubMenu
+     * @param EntityManagerInterface $em
+     *
+     * @return Response
+     */
+    public function delete(CrmSubMenu $crmSubMenu, EntityManagerInterface $em): Response
+    {
+        $em->remove($crmSubMenu);
+        $em->flush();
+
+        return new Response('Delete Sub menu', Response::HTTP_OK);
+
+    }
 }

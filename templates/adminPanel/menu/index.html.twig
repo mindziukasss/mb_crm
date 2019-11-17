@@ -21,44 +21,50 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <table class="table table-striped bg-light text-center" id="menu">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Position</th>
-                                    <th>Created</th>
-                                    <th>Updated</th>
-                                    <th>Enabled</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for menu in crmMenus %}
-                                <tr id="{{ menu.id }}">
-                                    <td>{{ menu.id }}</td>
-                                    <td>{{ menu.title }}</td>
-                                    <td>{{ menu.position }}</td>
-                                    <td>{{ menu.createdAt|date('Y-m-d H:m') }}</td>
-                                    <td>{{ menu.updatedAt|date('Y-m-d H:m') }}</td>
-                                    <td>{{ menu.enabled ? 'Yes' : 'No' }}</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{ path('crm_menu_edit', {id: menu.id}) }}">
-                                            <span class="fa fa-pencil"></span>
-                                        </a>
-                                        <a href="{{ path('crm_menu_delete', {id: menu.id}) }}" class="btn btn-danger delete">
-                                            <span class="fa fa-remove"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-8">
-                        <div class="navigation">
-                            {{ knp_pagination_render(crmMenus)}}
-                        </div>
+                        {% if crmMenus is not empty %}
+                            <table class="table table-striped bg-light text-center" id="menu">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Title</th>
+                                        <th>Position</th>
+                                        <th>Created</th>
+                                        <th>Updated</th>
+                                        <th>Enabled</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for menu in crmMenus %}
+                                    <tr id="{{ menu.id }}">
+                                        <td>{{ menu.id }}</td>
+                                        <td>{{ menu.title }}</td>
+                                        <td>{{ menu.position }}</td>
+                                        <td>{{ menu.createdAt|date('Y-m-d H:m') }}</td>
+                                        <td>{{ menu.updatedAt|date('Y-m-d H:m') }}</td>
+                                        <td>{{ menu.enabled ? 'Yes' : 'No' }}</td>
+                                        <td>
+                                            <a class="btn btn-primary" href="{{ path('crm_menu_edit', {id: menu.id}) }}">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                            <a href="{{ path('crm_menu_delete', {id: menu.id}) }}" class="btn btn-danger delete">
+                                                <span class="fa fa-remove"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="col-8">
+                                <div class="navigation">
+                                    {{ knp_pagination_render(crmMenus)}}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="col-12 mt-2">
+                                <h4 class="text-center">Not Menu data</h4>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -68,7 +68,7 @@ class CrmMenu
     /**
      * @var CrmSubMenu
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\CrmSubMenu", mappedBy="menu")
+     * @ORM\OneToMany(targetEntity="App\Entity\CrmSubMenu", mappedBy="menu", orphanRemoval=true)
      */
     private $subMenus;
 
