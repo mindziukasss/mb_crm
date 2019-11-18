@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\CrmPage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class CrmPageRepository
@@ -24,6 +25,16 @@ class CrmPageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CrmPage::class);
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getPageQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.deletedAt IS NULL')
+            ->orderBy('p.createdAt', 'ASC');
     }
 
     // /**

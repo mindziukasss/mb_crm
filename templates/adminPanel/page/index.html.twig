@@ -11,7 +11,7 @@
                         <div class="col-12 mb-4">
                             <div class="row">
                                 <div class="col-2">
-                                    <a href="{{ path('crm_sub_menu_new') }}"><button type="button" class="btn btn-success btn-sm mb-1">New sub-menu</button></a>
+                                    <a href="#"><button type="button" class="btn btn-success btn-sm mb-1">New page</button></a>
                                 </div>
                                 <div class="col-6">
                                     {% for message in app.flashes('success') %}
@@ -21,14 +21,15 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            {% if crmSubMenus is not empty %}
+                            {% if crmPages is not empty %}
                                 <table class="table table-striped bg-light text-center" id="menu">
                                     <thead>
                                     <tr>
                                         <th>Id</th>
                                         <th>Menu</th>
+                                        <th>SubMenu</th>
                                         <th>Title</th>
-                                        <th>Position</th>
+                                        <th>Type</th>
                                         <th>Created</th>
                                         <th>Updated</th>
                                         <th>Enabled</th>
@@ -36,20 +37,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for subMenu in crmSubMenus %}
-                                        <tr id="{{ subMenu.id }}">
-                                            <td>{{ subMenu.id }}</td>
-                                            <td>{{ subMenu.menu.title }}</td>
-                                            <td>{{ subMenu.title }}</td>
-                                            <td>{{ subMenu.position }}</td>
-                                            <td>{{ subMenu.createdAt|date('Y-m-d H:m') }}</td>
-                                            <td>{{ subMenu.updatedAt|date('Y-m-d H:m') }}</td>
-                                            <td>{{ subMenu.enabled ? 'Yes' : 'No' }}</td>
+                                    {% for page in crmPages %}
+                                        <tr id="{{ page.id }}">
+                                            <td>{{ page.id }}</td>
+                                            <td>{{ page.menu.title }}</td>
+                                            <td>{{ page.subMenu.title }}</td>
+                                            <td>{{ page.title }}</td>
+                                            <td>{{ page.type }}</td>
+                                            <td>{{ page.createdAt|date('Y-m-d H:m') }}</td>
+                                            <td>{{ page.updatedAt|date('Y-m-d H:m') }}</td>
+                                            <td>{{ page.enabled ? 'Yes' : 'No' }}</td>
                                             <td>
-                                                <a class="btn btn-primary" href="{{ path('crm_sub_menu_edit', {id: subMenu.id}) }}">
+                                                <a class="btn btn-primary" href="#">
                                                     <span class="fa fa-pencil"></span>
                                                 </a>
-                                                <a href="{{ path('crm_sub_menu_delete', {id: subMenu.id}) }}" class="btn btn-danger delete">
+                                                <a href="#" class="btn btn-danger delete">
                                                     <span class="fa fa-remove"></span>
                                                 </a>
                                             </td>
@@ -59,7 +61,7 @@
                                 </table>
                                 <div class="col-8">
                                     <div class="navigation">
-                                        {{ knp_pagination_render(crmSubMenus)}}
+                                        {{ knp_pagination_render(crmPages)}}
                                     </div>
                                 </div>
                             {% else %}
