@@ -11,7 +11,7 @@
                         <div class="col-12 mb-4">
                             <div class="row">
                                 <div class="col-2">
-                                    <a href="#"><button type="button" class="btn btn-success btn-sm mb-1">New page</button></a>
+                                    <a href="{{ path('crm_page_new') }}"><button type="button" class="btn btn-success btn-sm mb-1">New page</button></a>
                                 </div>
                                 <div class="col-6">
                                     {% for message in app.flashes('success') %}
@@ -40,8 +40,8 @@
                                     {% for page in crmPages %}
                                         <tr id="{{ page.id }}">
                                             <td>{{ page.id }}</td>
-                                            <td>{{ page.menu.title }}</td>
-                                            <td>{{ page.subMenu.title }}</td>
+                                            <td>{{ page.menu.title is defined ? page.menu.title : '' }}</td>
+                                            <td>{{ page.subMenu.title is defined ? page.subMenu.title : '' }}</td>
                                             <td>{{ page.title }}</td>
                                             <td>{{ page.type }}</td>
                                             <td>{{ page.createdAt|date('Y-m-d H:m') }}</td>

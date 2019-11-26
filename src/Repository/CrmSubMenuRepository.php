@@ -43,7 +43,7 @@ class CrmSubMenuRepository extends ServiceEntityRepository
      */
     public function isPosition($position, $menuId)
     {
-        $data =  $this  ->createQueryBuilder('s')
+        $data = $this->createQueryBuilder('s')
             ->andWhere('s.menu = :menuId AND s.position = :val AND s.deletedAt IS NULL')
             ->setParameter('val', $position)
             ->setParameter('menuId', $menuId)
@@ -51,6 +51,19 @@ class CrmSubMenuRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
 
         return $data;
+    }
+
+    public function getSubMenu($menuId)
+    {
+       $qb = $this->createQueryBuilder('s')
+            ->select('s.id , s.title')
+            ->andWhere('s.menu = :menuId AND s.deletedAt IS NULL')
+            ->andWhere('s.enabled = :true')
+            ->setParameter('menuId', $menuId)
+            ->setParameter('true', 1)
+            ->orderBy('s.title', 'DESC');
+
+       return $qb->getQuery()->getResult();
     }
 
 

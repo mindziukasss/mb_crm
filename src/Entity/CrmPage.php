@@ -48,6 +48,10 @@ class CrmPage
      * @var string
      *
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(
+     *      min = 64,
+     *      minMessage = "Your title must be at least {{ limit }} characters long",
+     * )
      */
     private $description;
 
@@ -55,6 +59,7 @@ class CrmPage
      * @var string
      *
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank(message="Please choose a type")
      */
     private $type;
 
@@ -143,7 +148,7 @@ class CrmPage
     /**
      * @return CrmMenu|null
      */
-    public function getMenu(): ?CrmMenu
+    public function getMenu()
     {
         return $this->menu;
     }
@@ -153,7 +158,7 @@ class CrmPage
      *
      * @return $this
      */
-    public function setMenu(?CrmMenu $menu): self
+    public function setMenu($menu)
     {
         $this->menu = $menu;
 
@@ -163,7 +168,7 @@ class CrmPage
     /**
      * @return CrmSubMenu|null
      */
-    public function getSubMenu(): ?CrmSubMenu
+    public function getSubMenu()
     {
         return $this->subMenu;
     }
@@ -173,7 +178,7 @@ class CrmPage
      *
      * @return $this
      */
-    public function setSubMenu(?CrmSubMenu $subMenu): self
+    public function setSubMenu($subMenu)
     {
         $this->subMenu = $subMenu;
 

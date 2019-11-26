@@ -1,0 +1,15 @@
+{{ form_row(pageForm.menu, {
+
+    attr: {
+        'data-specific-url': path('crm_page_sub_menu'),
+        class: 'js-select-form'
+    }
+}) }}
+
+<div class="js-select-target">
+    {% if pageForm.subMenu is defined%} }}
+        {{ form_row(pageForm.subMenu) }}
+    {% endif %}
+</div>
+
+{{ form_widget(pageForm) }}

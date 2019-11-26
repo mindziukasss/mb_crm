@@ -33,6 +33,9 @@ class CrmPageRepository extends ServiceEntityRepository
     public function getPageQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
+            ->select('p, m, s')
+            ->leftJoin('p.menu', 'm')
+            ->leftJoin('p.subMenu', 's')
             ->andWhere('p.deletedAt IS NULL')
             ->orderBy('p.createdAt', 'ASC');
     }

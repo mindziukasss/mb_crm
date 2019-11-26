@@ -12,6 +12,7 @@ import $ from 'jquery';
 import 'bootstrap';
 import './components/time'
 import './components/delete'
+import './components/selecte'
 
 // Need jQuery? Install it with 'yarn add jquery', then uncomment to require it.
 // const $ = require('jquery');
