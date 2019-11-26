@@ -93,4 +93,21 @@ class CrmPageController extends BaseController
             'subMenuForm' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/{id}", name="crm_page_delete", methods={"DELETE"})
+     *
+     * @param CrmPage                $crmPage
+     * @param EntityManagerInterface $em
+     *
+     * @return Response
+     */
+    public function delete(CrmPage $crmPage, EntityManagerInterface $em): Response
+    {
+        $em->remove($crmPage);
+        $em->flush();
+
+        return new Response('Delete page', Response::HTTP_OK);
+    }
+
 }
