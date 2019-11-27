@@ -62,7 +62,7 @@ class CrmSubMenuType extends AbstractType
                 'enabled',
                 CheckboxType::class,
                 [
-                    'attr' => ['checked' => 'checked'],
+                    'attr' => ['checked' => !isset($options['data']) ? 'checked' : $options['data']->isEnabled()],
                     'required' => false,
                 ]
             );

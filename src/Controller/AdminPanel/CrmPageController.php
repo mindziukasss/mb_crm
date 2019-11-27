@@ -74,6 +74,53 @@ class CrmPageController extends BaseController
     }
 
     /**
+     * @Route("/{id}/edit", name="crm_page_edit", methods={"GET","POST"})
+     * @param EntityManagerInterface $em
+     * @param Request                $request
+     *
+     * @param CrmPage                $crmPage
+     *
+     * @return Response
+     */
+    public function edit(EntityManagerInterface $em, Request $request, CrmPage $crmPage): Response
+    {
+
+        if ($crmPage->getSubMenu()) {
+            $crmPage->setSubMenu($crmPage->getSubMenu()->getId());
+        }
+
+        $form = $this->createForm(CrmPageType::class, $crmPage);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var CrmPage $page */
+            $page = $form->getData();
+
+            if ($page->getSubMenu()) {
+                $subMenu = $em->getRepository(CrmSubMenu::class)->find($page->getSubMenu());
+                $page->setSubMenu($subMenu);
+            }
+
+            $em->persist($page);
+            $em->flush();
+
+            $this->addFlash('success', 'Page update!');
+
+            return $this->redirectToRoute('crm_page_index');
+
+        }
+
+        return $this->render(
+            'adminPanel/page/edit.html.twig',
+            [
+                'pageForm' => $form->createView(),
+                'crmPage' => $crmPage
+            ]
+        );
+    }
+
+    /**
      * @Route("/new/sub-menu", name="crm_page_sub_menu")
      * @param Request $request
      *

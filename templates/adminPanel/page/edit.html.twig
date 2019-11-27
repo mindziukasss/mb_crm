@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Page{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 ml-auto">
+                    <div class="row pt-md-5 mt-md-3 mb-5">
+                        <div class="col-sm-6 p-2">
+                            <div class="card card-common">
+                                <div class="card-body">
+                                    <h5>Edit Page</h5>
+                                    {{ form_start(pageForm) }}
+                                    {{ include('adminPanel/page/_form.html.twig') }}
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                        <a href="{{ path('crm_page_index') }}">
+                                            <button type="button" class="btn btn-primary">Back</button>
+                                        </a>
+                                    </div>
+                                    {{ form_end(pageForm) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -48,7 +48,7 @@
                                             <td>{{ page.updatedAt|date('Y-m-d H:m') }}</td>
                                             <td>{{ page.enabled ? 'Yes' : 'No' }}</td>
                                             <td>
-                                                <a class="btn btn-primary" href="#">
+                                                <a class="btn btn-primary" href="{{ path('crm_page_edit', {id: page.id}) }}">
                                                     <span class="fa fa-pencil"></span>
                                                 </a>
                                                 <a href="{{ path('crm_page_delete', {id: page.id}) }}" class="btn btn-danger delete">
