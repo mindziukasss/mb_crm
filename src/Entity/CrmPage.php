@@ -66,14 +66,14 @@ class CrmPage
     /**
      * @var CrmMenu
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\CrmMenu", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\CrmMenu")
      */
     private $menu;
 
     /**
      * @var CrmSubMenu
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\CrmSubMenu", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\CrmSubMenu")
      */
     private $subMenu;
 
@@ -146,7 +146,7 @@ class CrmPage
     }
 
     /**
-     * @return CrmMenu|null
+     * @return CrmMenu
      */
     public function getMenu()
     {
@@ -154,7 +154,7 @@ class CrmPage
     }
 
     /**
-     * @param CrmMenu|null $menu
+     * @param $menu
      *
      * @return $this
      */
@@ -166,7 +166,7 @@ class CrmPage
     }
 
     /**
-     * @return CrmSubMenu|null
+     * @return CrmSubMenu
      */
     public function getSubMenu()
     {
@@ -174,7 +174,7 @@ class CrmPage
     }
 
     /**
-     * @param CrmSubMenu|null $subMenu
+     * @param $subMenu
      *
      * @return $this
      */
@@ -184,4 +184,5 @@ class CrmPage
 
         return $this;
     }
+
 }
