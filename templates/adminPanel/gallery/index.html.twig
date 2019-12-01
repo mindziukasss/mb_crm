@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ (app.request.attributes.get('_route')|titlePage) }}{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-10 col-lg-10 col-md-7 ml-auto">
+                    <div class="row pt-md-5 mt-md-3 mb-5 align-items-center">
+                        <div class="col-12 mb-4">
+                            <div class="row">
+                                <div class="col-2">
+                                    <a href="{{ path('crm_gallery_new') }}"><button type="button" class="btn btn-success btn-sm mb-1">New gallery</button></a>
+                                </div>
+                                <div class="col-6">
+                                    {% for message in app.flashes('success') %}
+                                        <div class="alert alert-success created-message">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% if crmGalleries is not empty %}
+                                <table class="table table-striped bg-light text-center" id="menu">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Title</th>
+                                        <th>Image list</th>
+                                        <th>Created</th>
+                                        <th>Updated</th>
+                                        <th>Enabled</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for gallery in crmGalleries %}
+                                        <tr id="{{ gallery.id }}">
+                                            <td>{{ gallery.id }}</td>
+                                            <td>{{ gallery.title }}</td>
+                                            <td>Img list</td>
+                                            <td>{{ gallery.createdAt|date('Y-m-d H:m') }}</td>
+                                            <td>{{ gallery.updatedAt|date('Y-m-d H:m') }}</td>
+                                            <td>{{ gallery.enabled ? 'Yes' : 'No' }}</td>
+                                            <td>
+                                                <a class="btn btn-primary" href="#">
+                                                    <span class="fa fa-pencil"></span>
+                                                </a>
+                                                <a href="#" class="btn btn-danger delete">
+                                                    <span class="fa fa-remove"></span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <div class="col-8">
+                                    <div class="navigation">
+                                        {{ knp_pagination_render(crmGalleries)}}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="col-12 mt-2">
+                                    <h4 class="text-center">The page doesn't data</h4>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

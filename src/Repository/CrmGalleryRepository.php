@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\CrmGallery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class CrmGalleryRepository
@@ -24,6 +25,17 @@ class CrmGalleryRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CrmGallery::class);
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getGalleryQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('g')
+            ->andWhere('g.deletedAt IS NULL')
+            ->orderBy('g.createdAt', 'DESC');
+
     }
 
     // /**
