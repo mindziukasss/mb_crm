@@ -78,6 +78,13 @@ class CrmPage
     private $subMenu;
 
     /**
+     * @var CrmGallery
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\CrmGallery")
+     */
+    private $gallery;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -181,6 +188,26 @@ class CrmPage
     public function setSubMenu($subMenu)
     {
         $this->subMenu = $subMenu;
+
+        return $this;
+    }
+
+    /**
+     * @return CrmGallery|null
+     */
+    public function getGallery(): ?CrmGallery
+    {
+        return $this->gallery;
+    }
+
+    /**
+     * @param CrmGallery|null $gallery
+     *
+     * @return $this
+     */
+    public function setGallery(?CrmGallery $gallery): self
+    {
+        $this->gallery = $gallery;
 
         return $this;
     }
