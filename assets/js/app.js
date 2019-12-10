@@ -13,6 +13,7 @@ import 'bootstrap';
 import './components/time'
 import './components/delete'
 import './components/selecte'
+import './components/media'
 
 // Need jQuery? Install it with 'yarn add jquery', then uncomment to require it.
 // const $ = require('jquery');
@@ -20,6 +21,14 @@ $(document).ready(function(){
     $('.alert-success').fadeTo(2000, 500).slideUp(500, function(){
         $('.alert-success').slideUp(500);
     });
+
+    //if need
+    // $('.custom-file-input').on('change', function(event) {
+    //     let inputFile = event.currentTarget;
+    //     $(inputFile).parent()
+    //         .find('.custom-file-label')
+    //         .html(inputFile.files[0].name);
+    // });
 });
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');

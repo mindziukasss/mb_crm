@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Entity\Traits\EnabledTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -43,6 +45,16 @@ class CrmGallery
     private $title;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CrmMedia", mappedBy="gallery")
+     */
+    private $media;
+
+    public function __construct()
+    {
+        $this->media = new ArrayCollection();
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -68,5 +80,13 @@ class CrmGallery
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|CrmMedia[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
     }
 }

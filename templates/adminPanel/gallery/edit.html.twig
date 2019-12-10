@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Gallery{% endblock %}
+{% block title %}Edit Gallery{% endblock %}
 
 {% block body %}
     <section>
@@ -11,10 +11,16 @@
                         <div class="col-sm-6 p-2">
                             <div class="card card-common">
                                 <div class="card-body">
-                                    <h5>Create new Gallery</h5>
+                                    <h5>Edit gallery</h5>
                                     {{ include('adminPanel/gallery/_form.html.twig', {
-                                        button_text: 'Save'
+                                        button_text: 'Update'
                                     }) }}
+                                </div>
+
+                                <div class="gallery_block">
+                                    <form action="{{ path('crm_gallery', {id: crmGallery.id}) }}"
+                                          method="POST" enctype="multipart/form-data" class="dropzone js-media-dropzone">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -23,4 +29,6 @@
             </div>
         </div>
     </section>
+
 {% endblock %}
+{#    {{ form_row(galleryForm.imageFile,{attr: {'placeholder': 'Select an gallery image'}}) }}#}

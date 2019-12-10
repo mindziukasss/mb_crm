@@ -1,1 +1,21 @@
-{{ form_widget(galleryForm) }}
+{{ form_start(galleryForm) }}
+{{ form_row(galleryForm.title, {
+    label: 'Gallery title'
+}) }}
+
+{{ form_row(galleryForm.enabled, {
+    label: 'Enabled'
+}) }}
+
+
+<div>
+    <button type="submit" class="btn btn-success">{{ button_text }}</button>
+    <a href="{{ path('crm_gallery_index') }}">
+        <button type="button" class="btn btn-primary">Back</button>
+    </a>
+</div>
+
+{{ form_end(galleryForm) }}
+
+
+

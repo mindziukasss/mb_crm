@@ -33,6 +33,8 @@ class CrmGalleryRepository extends ServiceEntityRepository
     public function getGalleryQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('g')
+            ->select('g, m')
+            ->leftJoin('g.media', 'm')
             ->andWhere('g.deletedAt IS NULL')
             ->orderBy('g.createdAt', 'DESC');
 

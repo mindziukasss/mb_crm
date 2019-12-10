@@ -27,7 +27,6 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Title</th>
-                                        <th>Image list</th>
                                         <th>Created</th>
                                         <th>Updated</th>
                                         <th>Enabled</th>
@@ -39,12 +38,11 @@
                                         <tr id="{{ gallery.id }}">
                                             <td>{{ gallery.id }}</td>
                                             <td>{{ gallery.title }}</td>
-                                            <td>Img list</td>
                                             <td>{{ gallery.createdAt|date('Y-m-d H:m') }}</td>
                                             <td>{{ gallery.updatedAt|date('Y-m-d H:m') }}</td>
                                             <td>{{ gallery.enabled ? 'Yes' : 'No' }}</td>
                                             <td>
-                                                <a class="btn btn-primary" href="#">
+                                                <a class="btn btn-primary" href="{{ path('crm_gallery_edit', { id: gallery.id }) }}">
                                                     <span class="fa fa-pencil"></span>
                                                 </a>
                                                 <a href="#" class="btn btn-danger delete">

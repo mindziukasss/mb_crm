@@ -6,6 +6,7 @@ use App\Entity\Traits\EnabledTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  *
@@ -23,6 +24,7 @@ class CrmMedia
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("main")
      */
     private $id;
 
@@ -30,6 +32,7 @@ class CrmMedia
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Groups("main")
      */
     private $fileName;
 
@@ -37,6 +40,7 @@ class CrmMedia
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Groups("main")
      */
     private $originalFileName;
 
@@ -44,6 +48,7 @@ class CrmMedia
      * @var string
      *
      * @ORM\Column(type="string", length=255)
+     * @Groups("main")
      */
     private $mimeType;
 
@@ -51,6 +56,7 @@ class CrmMedia
      * @var int
      *
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("main")
      */
     private $size;
 
@@ -58,13 +64,12 @@ class CrmMedia
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("main")
      */
     private $attributeAlt;
 
     /**
-     * @var CrmGallery
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\CrmGallery")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CrmGallery", inversedBy="media")
      * @ORM\JoinColumn(nullable=false)
      */
     private $gallery;
@@ -195,5 +200,13 @@ class CrmMedia
         $this->gallery = $gallery;
 
         return $this;
+    }
+
+    public function getImagePath()
+    {
+        //twig extension
+//        return UploaderHelper::GALLERIES.'/'. $this->getImageFilename();
+
+        return 'uploads/galleries/'.$this->getFileName();
     }
 }
