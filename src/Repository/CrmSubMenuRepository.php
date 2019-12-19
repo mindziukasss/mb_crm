@@ -53,6 +53,11 @@ class CrmSubMenuRepository extends ServiceEntityRepository
         return $data;
     }
 
+    /**
+     * @param $menuId
+     *
+     * @return mixed
+     */
     public function getSubMenu($menuId)
     {
        $qb = $this->createQueryBuilder('s')

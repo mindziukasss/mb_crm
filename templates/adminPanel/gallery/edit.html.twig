@@ -4,10 +4,28 @@
 
 {% block body %}
     <section>
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div class="col-lg-8 ml-auto">
-                    <div class="row pt-md-5 mt-md-3 mb-5">
+                <div class="col-10 ml-auto">
+                    <div class="pt-md-5 mt-md-3 mb-5">
+                        <div class="col-sm-12 p-2">
+                            <div class="card card-common">
+                                <div class="card-body">
+                                    <div class="gallery_block" data-id="{{ crmGallery.id }}">
+                                        <form action="{{ path('crm_media_add', {id: crmGallery.id}) }}"
+                                              method="POST" enctype="multipart/form-data"
+                                              class="dropzone js-media-dropzone">
+                                        </form>
+                                        <div class="pt-2">
+                                            <button class="btn btn-success" id="upload-files">Upload</button>
+                                            <a href="{{ path('crm_gallery_index') }}">
+                                                <button type="button" class="btn btn-primary">Back</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-6 p-2">
                             <div class="card card-common">
                                 <div class="card-body">
@@ -16,12 +34,6 @@
                                         button_text: 'Update'
                                     }) }}
                                 </div>
-
-                                <div class="gallery_block">
-                                    <form action="{{ path('crm_gallery', {id: crmGallery.id}) }}"
-                                          method="POST" enctype="multipart/form-data" class="dropzone js-media-dropzone">
-                                    </form>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -29,6 +41,4 @@
             </div>
         </div>
     </section>
-
 {% endblock %}
-{#    {{ form_row(galleryForm.imageFile,{attr: {'placeholder': 'Select an gallery image'}}) }}#}

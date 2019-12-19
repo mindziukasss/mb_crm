@@ -109,6 +109,20 @@ class UploaderHelper
         return $newFilename;
     }
 
+
+    /**
+     * @param string $path
+     *
+     * @throws \League\Flysystem\FileNotFoundException
+     */
+    public function deleteFile(string $path)
+    {
+        $result = $this->filesystem->delete($path);
+        if ($result === false) {
+            throw new \Exception(sprintf('Error deleting "%s"', $path));
+        }
+    }
+
     /**
      * @param string $path
      *

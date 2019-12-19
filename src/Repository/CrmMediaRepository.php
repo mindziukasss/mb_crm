@@ -26,6 +26,22 @@ class CrmMediaRepository extends ServiceEntityRepository
         parent::__construct($registry, CrmMedia::class);
     }
 
+    /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function getMedia($id)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->select('m.id, m.fileName, m.size, m.originalFileName')
+            ->andWhere('m.gallery = :galleryId AND m.deletedAt IS NULL')
+            ->setParameter('galleryId', $id)
+            ->orderBy('m.createdAt', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return CrmMedia[] Returns an array of CrmMedia objects
     //  */
