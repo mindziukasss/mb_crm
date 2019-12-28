@@ -40,6 +40,19 @@ class CrmGalleryRepository extends ServiceEntityRepository
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function getGalleryTitle()
+    {
+       $qb = $this->createQueryBuilder('g')
+            ->select('g.id, g.title')
+            ->andWhere('g.deletedAt IS NULL')
+            ->addOrderBy('g.createdAt', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return CrmGallery[] Returns an array of CrmGallery objects
     //  */

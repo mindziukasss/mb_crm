@@ -56,7 +56,7 @@ class CrmMediaController extends AbstractController
                     'message' => 'Please select a file to upload'
                 ]),
                 new File([
-                    'maxSize' => '10M',
+                    'maxSize' => '200M',
                     'mimeTypes' => [
                         'image/*',
                     ]

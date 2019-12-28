@@ -30,7 +30,7 @@ class CrmMenuRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('m')
             ->andWhere('m.deletedAt IS NULL')
-            ->orderBy('m.createdAt', 'ASC');
+            ->orderBy('m.position', 'ASC');
 
     }
 

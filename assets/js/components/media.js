@@ -12,12 +12,15 @@ $(document).ready(function() {
         const myDropzone = new Dropzone('.js-media-dropzone', {
             autoProcessQueue: false,
             parallelUploads: 20,
+            maxFilesize: 200,
             // thumbnailWidth: 120,
             // thumbnailHeight: 120,
             addRemoveLinks: true,
             dictFileTooBig: 'Limit: 10MB',
-            timeout: 10000,
+            timeout: 180000,
             dictDefaultMessage: "Click me",
+            maxThumbnailFilesize: 200,
+            maxFiles:20,
 
             init: function () {
                 this.on("removedfile", function (file) {
@@ -26,6 +29,10 @@ $(document).ready(function() {
                         let fileData = JSON.parse(file.xhr.responseText);
                         delImageDropzone(fileData);
                     };
+                });
+
+                this.on("uploadprogress", function(file, progress) {
+                    console.log("File progress", progress);
                 });
 
                 $.get('/mb-crm/admin/media/' + galleryId.dataset.id, function (file) {

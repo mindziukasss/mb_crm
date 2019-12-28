@@ -5,6 +5,8 @@ namespace App\Form\AdminPanel\Page;
 use App\Entity\CrmMenu;
 use App\Entity\CrmPage;
 
+use App\EventListener\Gallery\AddGallery;
+use App\Repository\CrmGalleryRepository;
 use App\Repository\CrmSubMenuRepository;
 use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -29,14 +31,19 @@ class CrmPageType extends AbstractType
      */
     private $subMenuRepository;
 
+
+    private $galleryRepository;
+
     /**
      * CrmPageType constructor.
      *
      * @param CrmSubMenuRepository $subMenuRepository
+     * @param CrmGalleryRepository $galleryRepository
      */
-    public function __construct(CrmSubMenuRepository $subMenuRepository)
+    public function __construct(CrmSubMenuRepository $subMenuRepository, CrmGalleryRepository $galleryRepository)
     {
         $this->subMenuRepository = $subMenuRepository;
+        $this->galleryRepository = $galleryRepository;
     }
 
     /**
@@ -76,10 +83,13 @@ class CrmPageType extends AbstractType
                     return;
                 }
 
-                $this->setupSubMenuName(
-                    $event->getForm(),
-                    $data->getMenu()
-                );
+                if ($data->getType()) {
+                    return  $this->getPageType($event->getForm(), $data->getType());
+                }
+
+                if ($data->getMenu()) {
+                    return $this->setupSubMenuName($event->getForm(), $data->getMenu());
+                }
 
             }
         );
@@ -130,6 +140,19 @@ class CrmPageType extends AbstractType
                     'required' => false,
                 ]
             );
+
+        $builder->get('type')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) {
+
+                $form = $event->getForm();
+                $this->getPageType(
+                    $form->getParent(),
+                    $form->getData()
+                );
+            }
+        );
+
     }
 
     /**
@@ -175,6 +198,62 @@ class CrmPageType extends AbstractType
                 );
             }
         }
+
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return array|false|mixed
+     */
+    private function getGalleryList(string $type)
+    {
+
+        if ($type === 'gallery') {
+
+            $galleries = $this->galleryRepository->getGalleryTitle();
+
+            $galleryTitle = [];
+            $galleryId = [];
+
+            foreach ($galleries as $key => $value) {
+
+                $galleryTitle[] = $value['title'];
+                $galleryId[] = $value['id'];
+            }
+
+            $galleries = array_combine($galleryTitle, $galleryId);
+
+            return $galleries;
+        }
+
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param string|null   $type
+     */
+    private function getPageType(FormInterface $form, ?string $type)
+    {
+        if (null === $type) {
+            $form->remove('gallery');
+
+            return;
+        }
+
+        $choices = $this->getGalleryList($type);
+
+        if (null === $choices) {
+            $form->remove('gallery');
+
+            return;
+        }
+
+        $form->add('gallery', ChoiceType::class, [
+            'placeholder' => 'Choice gallery',
+            'choices' => $choices,
+            'required' => false,
+        ]);
 
     }
 }

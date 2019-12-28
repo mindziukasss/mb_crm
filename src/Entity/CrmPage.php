@@ -195,17 +195,17 @@ class CrmPage
     /**
      * @return CrmGallery|null
      */
-    public function getGallery(): ?CrmGallery
+    public function getGallery()
     {
         return $this->gallery;
     }
 
     /**
-     * @param CrmGallery|null $gallery
+     * @param $gallery
      *
      * @return $this
      */
-    public function setGallery(?CrmGallery $gallery): self
+    public function setGallery($gallery)
     {
         $this->gallery = $gallery;
 

@@ -3,10 +3,12 @@
 namespace App\Controller\AdminPanel;
 
 use App\Controller\BaseController;
+use App\Entity\CrmGallery;
 use App\Entity\CrmPage;
 use App\Entity\CrmSubMenu;
 use App\Form\AdminPanel\Page\CrmPageType;
 use App\Paginator\PaginatorItemsList;
+use App\Repository\CrmGalleryRepository;
 use App\Repository\CrmPageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,6 +56,11 @@ class CrmPageController extends BaseController
             if ($page->getSubMenu()) {
                 $subMenu = $em->getRepository(CrmSubMenu::class)->find($page->getSubMenu());
                 $page->setSubMenu($subMenu);
+            }
+
+            if ($page->getType() === 'gallery') {
+                $gallery = $em->getRepository(CrmGallery::class)->find($page->getGallery());
+                $page->setGallery($gallery);
             }
 
             $em->persist($page);
@@ -138,6 +145,30 @@ class CrmPageController extends BaseController
 
         return $this->render('adminPanel/page/_subMenu.html.twig', [
             'subMenuForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/new/gallery", name="crm_page_gallery")
+     * @param Request              $request
+     *
+     * @param CrmGalleryRepository $galleryRepository
+     *
+     * @return Response
+     */
+    public function getGallery(Request $request, CrmGalleryRepository $galleryRepository)
+    {
+
+        $page = new CrmPage();
+        $page->setType($request->query->get('location'));
+        $form = $this->createForm(CrmPageType::class, $page);
+
+        if (!$form->has('gallery')) {
+            return new Response(null, 204);
+        }
+
+        return $this->render('adminPanel/page/_gallery.html.twig', [
+            'form' =>$form->createView()
         ]);
     }
 

@@ -12,4 +12,23 @@
     {% endif %}
 </div>
 
+{{ form_row(pageForm.title) }}
+
+{{ form_row(pageForm.type, {
+    attr: {
+        'data-gallery-specific-url': path('crm_page_gallery'),
+        class: 'js-select-form-gallery'
+    }
+}) }}
+
+<div class="js-select-target-gallery">
+    {% if pageForm.gallery is defined %}
+        {{ form_row(pageForm.gallery) }}
+    {% endif %}
+</div>
+
+    <div class="page-description">
+    {{ form_row(pageForm.description) }}
+</div>
+
 {{ form_widget(pageForm) }}
