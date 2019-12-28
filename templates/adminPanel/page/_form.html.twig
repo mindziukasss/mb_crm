@@ -27,7 +27,8 @@
     {% endif %}
 </div>
 
-    <div class="page-description">
+<div class="page-description
+    {% if pageForm.gallery is defined %}d-none{% endif %}">
     {{ form_row(pageForm.description) }}
 </div>
 

@@ -84,24 +84,13 @@ class CrmPageType extends AbstractType
                 }
 
                 if ($data->getType()) {
-                    return  $this->getPageType($event->getForm(), $data->getType());
+                    $this->getPageType($event->getForm(), $data->getType());
                 }
 
                 if ($data->getMenu()) {
-                    return $this->setupSubMenuName($event->getForm(), $data->getMenu());
+                    $this->setupSubMenuName($event->getForm(), $data->getMenu());
                 }
 
-            }
-        );
-
-        $builder->get('menu')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $this->setupSubMenuName(
-                    $form->getParent(),
-                    $form->getData()
-                );
             }
         );
 
@@ -140,6 +129,17 @@ class CrmPageType extends AbstractType
                     'required' => false,
                 ]
             );
+
+        $builder->get('menu')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $this->setupSubMenuName(
+                    $form->getParent(),
+                    $form->getData()
+                );
+            }
+        );
 
         $builder->get('type')->addEventListener(
             FormEvents::POST_SUBMIT,

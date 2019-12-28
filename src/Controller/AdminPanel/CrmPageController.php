@@ -96,6 +96,10 @@ class CrmPageController extends BaseController
             $crmPage->setSubMenu($crmPage->getSubMenu()->getId());
         }
 
+        if ($crmPage->getGallery()) {
+            $crmPage->setGallery($crmPage->getGallery()->getId());
+        }
+
         $form = $this->createForm(CrmPageType::class, $crmPage);
 
         $form->handleRequest($request);
@@ -107,6 +111,11 @@ class CrmPageController extends BaseController
             if ($page->getSubMenu()) {
                 $subMenu = $em->getRepository(CrmSubMenu::class)->find($page->getSubMenu());
                 $page->setSubMenu($subMenu);
+            }
+
+            if ($page->getType() === 'gallery') {
+                $gallery = $em->getRepository(CrmGallery::class)->find($page->getGallery());
+                $page->setGallery($gallery);
             }
 
             $em->persist($page);
