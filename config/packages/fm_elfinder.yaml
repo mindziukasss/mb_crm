@@ -1,0 +1,15 @@
+fm_elfinder:
+    instances:
+        default:
+            editor: ckeditor
+            include_assets: true
+            relative_path: true
+            connector:
+                roots:       # at least one root must be defined
+                    uploads:
+                        show_hidden: false # defaults to false
+                        driver: LocalFileSystem
+                        path: uploads/galleries
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 200M
