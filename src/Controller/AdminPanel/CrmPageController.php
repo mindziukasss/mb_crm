@@ -11,13 +11,14 @@ use App\Paginator\PaginatorItemsList;
 use App\Repository\CrmGalleryRepository;
 use App\Repository\CrmPageRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class CrmPageController
- *
+ * @IsGranted("ROLE_SUPER_ADMIN")
  * @Route("/page")
  */
 class CrmPageController extends BaseController

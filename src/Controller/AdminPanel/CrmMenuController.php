@@ -10,13 +10,14 @@ use App\Form\AdminPanel\Menu\CrmMenuType;
 use App\Paginator\PaginatorItemsList;
 use App\Repository\CrmMenuRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class CrmMenuController
- *
+ * @IsGranted("ROLE_SUPER_ADMIN")
  * @Route("/menu")
  */
 class CrmMenuController extends BaseController

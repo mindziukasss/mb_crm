@@ -7,6 +7,7 @@ use App\Entity\CrmMedia;
 use App\Repository\CrmMediaRepository;
 use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class CrmMediaController
- *
+ * @IsGranted("ROLE_SUPER_ADMIN")
  * @Route("/media")
  */
 class CrmMediaController extends AbstractController
