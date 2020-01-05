@@ -35,6 +35,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Please set a you email!")
      */
     private $email;
 
@@ -61,6 +62,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
 
     /**
      * @return int|null
@@ -197,6 +203,26 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string|null $token
+     *
+     * @return $this
+     */
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
