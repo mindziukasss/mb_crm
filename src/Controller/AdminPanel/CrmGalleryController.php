@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class CrmGalleryController
- * @IsGranted("ROLE_SUPER_ADMIN")
+ * @IsGranted("ROLE_ADMIN")
  * @Route("/gallery")
  */
 class CrmGalleryController extends AbstractController

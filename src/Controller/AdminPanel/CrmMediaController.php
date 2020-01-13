@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class CrmMediaController
- * @IsGranted("ROLE_SUPER_ADMIN")
+ * @IsGranted("ROLE_ADMIN")
  * @Route("/media")
  */
 class CrmMediaController extends AbstractController

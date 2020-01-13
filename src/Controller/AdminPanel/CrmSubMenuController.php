@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class CrmSubMenuController
- * @IsGranted("ROLE_SUPER_ADMIN")
+ * @IsGranted("ROLE_ADMIN")
  * @Route("/sub-menu")
  */
 class CrmSubMenuController extends BaseController

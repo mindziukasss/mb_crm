@@ -12,7 +12,7 @@ security:
                 property: email
 
     role_hierarchy:
-        ROLE_SUPER_ADMIN: [ROLE_SUPER_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_SUPER_ADMIN, ROLE_ADMIN]
 
     firewalls:
         dev:
@@ -44,3 +44,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+
