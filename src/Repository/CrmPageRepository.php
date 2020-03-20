@@ -40,6 +40,19 @@ class CrmPageRepository extends ServiceEntityRepository
             ->orderBy('p.createdAt', 'ASC');
     }
 
+    public function getPageApi($slug)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('p.title, p.description')
+            ->leftJoin('p.menu', 'm')
+            ->leftJoin('p.subMenu', 's')
+            ->setParameter('slug', $slug)
+            ->Where('m.slug = :slug OR s.slug = :slug');
+
+        return $qb->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return CrmPage[] Returns an array of CrmPage objects
     //  */
