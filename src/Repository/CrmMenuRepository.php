@@ -52,6 +52,16 @@ class CrmMenuRepository extends ServiceEntityRepository
         return $data;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMenuAndSubmenu()
+    {
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.position', 'ASC')
+            ->getQuery()->getResult();
+    }
+
     // /**
     //  * @return CrmMenu[] Returns an array of CrmMenu objects
     //  */
