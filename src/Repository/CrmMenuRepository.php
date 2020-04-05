@@ -43,23 +43,13 @@ class CrmMenuRepository extends ServiceEntityRepository
     public function isPosition($position)
     {
 
-        $data =  $this  ->createQueryBuilder('m')
+        $data = $this->createQueryBuilder('m')
             ->andWhere('m.position = :val AND m.deletedAt IS NULL')
             ->setParameter('val', $position)
             ->getQuery()
             ->getOneOrNullResult();
 
         return $data;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMenuAndSubmenu()
-    {
-        return $this->createQueryBuilder('m')
-            ->orderBy('m.position', 'ASC')
-            ->getQuery()->getResult();
     }
 
     // /**

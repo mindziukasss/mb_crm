@@ -40,7 +40,12 @@ class CrmPageRepository extends ServiceEntityRepository
             ->orderBy('p.createdAt', 'ASC');
     }
 
-    public function getPageApi($slug)
+    /**
+     * @param $slug
+     *
+     * @return mixed
+     */
+    public function getPage($slug)
     {
         $qb = $this->createQueryBuilder('p')
             ->select('p.title, p.description')
@@ -51,6 +56,35 @@ class CrmPageRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMenu()
+    {
+        return $this->createQueryBuilder('p')
+        ->select('p.type, m.id as menuId, m.title, m.slug, m.position')
+        ->leftJoin('p.menu', 'm')
+        ->andWhere('p.deletedAt IS NULL AND p.enabled = 1')
+        ->distinct('menuId')
+        ->orderBy('m.position', 'ASC')
+        ->getQuery()->getResult();
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubMenu()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('m.id as menuId, s.id as subId, s.slug as subSlug, s.title as subTitle, s.position as subPosition')
+            ->leftJoin('p.menu', 'm')
+            ->leftJoin('p.subMenu', 's')
+            ->andWhere('p.deletedAt IS NULL AND p.enabled = 1 AND s.id IS NOT NULL')
+            ->orderBy('s.position', 'ASC')
+            ->getQuery()->getResult();
     }
 
     // /**
