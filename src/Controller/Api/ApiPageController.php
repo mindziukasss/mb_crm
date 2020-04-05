@@ -6,6 +6,9 @@ namespace App\Controller\Api;
 use App\Repository\CrmPageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class ApiPageController
@@ -46,5 +49,25 @@ class ApiPageController extends AbstractController
         return $this->json( $menu, 200, [], []);
     }
 
+    /**
+     * @Route("/api/{slug}", name="api_gallery")
+     * @param CrmPageRepository $pageRepository
+     * @param                   $slug
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     */
+    public function getGalleryApi(CrmPageRepository $pageRepository, $slug)
+    {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+       $data = $serializer->normalize($pageRepository->getGallery($slug), null,
+          [AbstractNormalizer::ATTRIBUTES => ['title', 'description', 'type',
+              'gallery' => ['title',
+                  'media' => ['fileName', 'attributeAlt']
+              ]]
+          ]);
+
+       return $this->json( $data, 200, [], []);;
+    }
 
 }

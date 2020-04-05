@@ -52,7 +52,7 @@ class CrmPageRepository extends ServiceEntityRepository
             ->leftJoin('p.menu', 'm')
             ->leftJoin('p.subMenu', 's')
             ->setParameter('slug', $slug)
-            ->Where('m.slug = :slug OR s.slug = :slug');
+            ->Where('m.slug = :slug AND m.deletedAt IS NULL AND m.enabled = 1');
 
         return $qb->getQuery()->getResult();
 
@@ -87,32 +87,23 @@ class CrmPageRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-    // /**
-    //  * @return CrmPage[] Returns an array of CrmPage objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param $slug
+     *
+     * @return mixed
+     *
+     */
+    public function getGallery($slug)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $this->createQueryBuilder('p')
+            ->select('p, g, m')
+            ->leftJoin('p.gallery', 'g')
+            ->leftJoin('g.media', 'm')
+            ->setParameter('type', $slug)
+            ->andWhere('p.type = :type AND p.deletedAt IS NULL AND p.enabled = 1
+              AND g.deletedAt IS NULL AND g.enabled = 1
+              AND g.deletedAt IS NULL AND g.enabled = 1')
+            ->getQuery()->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?CrmPage
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
     }
-    */
 }
