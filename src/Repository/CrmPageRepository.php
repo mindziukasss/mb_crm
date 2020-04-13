@@ -93,8 +93,9 @@ class CrmPageRepository extends ServiceEntityRepository
      * @return mixed
      *
      */
-    public function getGallery($slug)
+    public function getGalleries($slug)
     {
+
         return $this->createQueryBuilder('p')
             ->select('p, g, m')
             ->leftJoin('p.gallery', 'g')
@@ -102,8 +103,32 @@ class CrmPageRepository extends ServiceEntityRepository
             ->setParameter('type', $slug)
             ->andWhere('p.type = :type AND p.deletedAt IS NULL AND p.enabled = 1
               AND g.deletedAt IS NULL AND g.enabled = 1
-              AND g.deletedAt IS NULL AND g.enabled = 1')
+              AND m.deletedAt IS NULL AND m.enabled = 1')
             ->getQuery()->getResult();
 
+    }
+
+
+    /**
+     * @param $type
+     * @param $slug
+     *
+     * @return mixed
+     */
+    public function getGallery($type, $slug)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p, g, m, sub')
+            ->leftJoin('p.gallery', 'g')
+            ->leftJoin('p.subMenu', 'sub')
+            ->leftJoin('g.media', 'm')
+            ->setParameter('type', $type)
+            ->setParameter('slug', $slug)
+            ->andWhere('p.type = :type AND sub.slug = :slug
+              AND p.deletedAt IS NULL AND p.enabled = 1
+              AND sub.deletedAt IS NULL AND sub.enabled = 1
+              AND g.deletedAt IS NULL AND g.enabled = 1
+              AND m.deletedAt IS NULL AND m.enabled = 1')
+            ->getQuery()->getResult();
     }
 }

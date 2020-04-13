@@ -50,24 +50,48 @@ class ApiPageController extends AbstractController
     }
 
     /**
-     * @Route("/api/{slug}", name="api_gallery")
+     * @Route("/api/{slug}", name="api_galleries")
      * @param CrmPageRepository $pageRepository
      * @param                   $slug
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */
-    public function getGalleryApi(CrmPageRepository $pageRepository, $slug)
+    public function getGalleriesApi(CrmPageRepository $pageRepository, $slug)
     {
         $serializer = new Serializer([new ObjectNormalizer()]);
-       $data = $serializer->normalize($pageRepository->getGallery($slug), null,
+       $data = $serializer->normalize($pageRepository->getGalleries($slug), null,
           [AbstractNormalizer::ATTRIBUTES => ['title', 'description', 'type',
               'gallery' => ['title',
                   'media' => ['fileName', 'attributeAlt']
               ]]
           ]);
 
-       return $this->json( $data, 200, [], []);;
+       return $this->json( $data, 200, [], []);
+    }
+
+
+    /**
+     * @Route("/api/{type}/{slug}", name="api_gallery")
+     * @param CrmPageRepository $pageRepository
+     * @param                   $type
+     * @param                   $slug
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     */
+    public function getGalleryApi(CrmPageRepository $pageRepository, $type, $slug)
+    {
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $data = $serializer->normalize($pageRepository->getGallery($type,$slug), null,
+            [AbstractNormalizer::ATTRIBUTES => ['title', 'description', 'type',
+                'gallery' => ['title',
+                    'media' => ['fileName', 'attributeAlt']
+                ]]
+            ]);
+
+        return $this->json( $data, 200, [], []);
+
     }
 
 }
