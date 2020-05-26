@@ -60,10 +60,11 @@ class ApiPageController extends AbstractController
     public function getGalleriesApi(CrmPageRepository $pageRepository, $slug)
     {
         $serializer = new Serializer([new ObjectNormalizer()]);
-       $data = $serializer->normalize($pageRepository->getGalleries($slug), null,
+        $data = $serializer->normalize($pageRepository->getGalleries($slug), null,
           [AbstractNormalizer::ATTRIBUTES => ['title', 'description', 'type',
+              'subMenu' => ['slug'],
               'gallery' => ['title',
-                  'media' => ['fileName', 'attributeAlt']
+              'media' => ['fileName', 'attributeAlt']
               ]]
           ]);
 

@@ -97,9 +97,10 @@ class CrmPageRepository extends ServiceEntityRepository
     {
 
         return $this->createQueryBuilder('p')
-            ->select('p, g, m')
+            ->select('p, g, m, sub')
             ->leftJoin('p.gallery', 'g')
             ->leftJoin('g.media', 'm')
+            ->leftJoin('p.subMenu', 'sub')
             ->setParameter('type', $slug)
             ->andWhere('p.type = :type AND p.deletedAt IS NULL AND p.enabled = 1
               AND g.deletedAt IS NULL AND g.enabled = 1
