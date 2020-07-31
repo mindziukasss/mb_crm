@@ -1,8 +1,8 @@
 {
-  "build/app.css": "/build/app.css",
-  "build/app.js": "/build/app.js",
-  "build/vendors~app.css": "/build/vendors~app.css",
-  "build/vendors~app.js": "/build/vendors~app.js",
+  "build/0.bb82125d.css": "/build/0.bb82125d.css",
+  "build/0.c98dd53c.js": "/build/0.c98dd53c.js",
+  "build/app.css": "/build/app.6fc6a378.css",
+  "build/app.js": "/build/app.78e8a684.js",
   "build/fonts/fontawesome-webfont.eot": "/build/fonts/fontawesome-webfont.674f50d2.eot",
   "build/fonts/fontawesome-webfont.woff2": "/build/fonts/fontawesome-webfont.af7ae505.woff2",
   "build/fonts/fontawesome-webfont.ttf": "/build/fonts/fontawesome-webfont.b06871f2.ttf",
