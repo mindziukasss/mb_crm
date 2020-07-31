@@ -60,21 +60,21 @@ class SecurityController extends AbstractController
         $form = $this->createForm(ForgotPasswordType::class);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $email = $form->getData();
             $user = $em->getRepository(User::class)->findOneBy(['email' => $email->getEmail()]);
-           $token = $request->request->get('forgot_password')['_token'];
+            $token = $request->request->get('forgot_password')['_token'];
 
             if (!empty($user) && $token) {
+                $local = $_SERVER['SITE_BASE_URL'];
+                $suffix = "/mb-crm/admin/reset-password?user=" . "&token=" . $token . '';
+                $url = "<a href='$local . $suffix'>'Create new password'<a>";
+
                 $message = (new \Swift_Message('New Password'))
-                    ->setFrom('mindaugasbernotas2@gmail.com')
+                    ->setFrom($_SERVER['EMAIL'])
                     ->setTo($user->getEmail())
-                    ->setBody('
-                    <a href="http://127.0.0.1:8000/mb-crm/admin/reset-password?user=' . $user->getEmail() . '&token=' . $token . '">
-                    Create new password
-                    </a>', 'text/html');
+                    ->setBody($url, 'text/html');
 
                 $mailer->send($message);
 

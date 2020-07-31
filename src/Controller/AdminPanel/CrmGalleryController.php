@@ -6,6 +6,7 @@ use App\Entity\CrmGallery;
 use App\Form\AdminPanel\Gallery\CrmGalleryType;
 use App\Paginator\PaginatorItemsList;
 use App\Repository\CrmGalleryRepository;
+use App\Service\UploaderHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -105,6 +106,29 @@ class CrmGalleryController extends AbstractController
                 'crmGallery' => $crmGallery
             ]
         );
+    }
+
+    /**
+     * @Route("/{id}", name="crm_gallery_delete", methods={"DELETE"})
+     *
+     *
+     * @param CrmGallery             $crmGallery
+     * @param UploaderHelper         $uploaderHelper
+     * @param EntityManagerInterface $em
+     *
+     * @return Response
+     * @throws \League\Flysystem\FileNotFoundException
+     */
+    public function delete(CrmGallery $crmGallery, UploaderHelper $uploaderHelper, EntityManagerInterface $em): Response
+    {
+
+        $em->remove($crmGallery);
+        foreach ($crmGallery->getMedia() as $path) {
+            $uploaderHelper->deleteFile('galleries/' . $path->getFileName());
+        }
+        $em->flush();
+
+        return new Response('Delete gallery', Response::HTTP_OK);
     }
 
 }

@@ -103,7 +103,7 @@ class CrmMediaController extends AbstractController
         $em->remove($media);
         $em->flush();
 
-        $uploaderHelper->deleteFile('galleries/'.$media->getFileName());
+        $uploaderHelper->deleteFile('galleries/' . $media->getFileName());
 
         return new Response('Delete media', Response::HTTP_OK);
     }

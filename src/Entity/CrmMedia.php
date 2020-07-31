@@ -70,7 +70,7 @@ class CrmMedia
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\CrmGallery", inversedBy="media")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $gallery;
 

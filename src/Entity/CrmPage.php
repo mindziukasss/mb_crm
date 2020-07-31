@@ -81,6 +81,7 @@ class CrmPage
      * @var CrmGallery
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\CrmGallery")
+     * @ORM\JoinColumn(onDelete="SET NULL", nullable=true)
      */
     private $gallery;
 
